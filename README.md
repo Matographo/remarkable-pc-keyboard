@@ -16,15 +16,15 @@ PC Keyboard → SSH Tunnel → reMarkable Kernel
 
 | Platform | Script | Requirements |
 |----------|--------|--------------|
-| Linux | `remarkable.sh` | python3, ssh, libnotify |
-| macOS | `remarkable_mac.py` | python3, pyobjc, ssh |
-| Windows | `remarkable_windows.py` | python3, pynput, ssh |
+| Linux | `scripts/remarkable.sh` | python3, ssh, libnotify |
+| macOS | `scripts/remarkable_mac.py` | python3, pyobjc, ssh |
+| Windows | `scripts/remarkable_windows.py` | python3, pynput, ssh |
 
 ## Quick Start
 
 ### 1. Configure keyboard
 
-Edit `keyboard.conf`:
+Edit `scripts/keyboard.conf`:
 
 ```bash
 KEYBOARD_NAME="Moonlander"  # Your keyboard name (partial match)
@@ -72,22 +72,22 @@ pip install pynput
 
 **Linux:**
 ```bash
-./remarkable.sh
+./scripts/remarkable.sh
 ```
 
 **macOS:**
 ```bash
-python3 remarkable_mac.py
+python3 scripts/remarkable_mac.py
 ```
 
 **Windows:**
 ```bash
-python remarkable_windows.py
+python scripts/remarkable_windows.py
 ```
 
 ### 5. Switch back to PC
 
-Press **F13** on your keyboard.
+Press **F13** (or configured hotkey) on your keyboard.
 
 ## Keyboard Examples
 
@@ -101,7 +101,7 @@ Any keyboard that creates `/dev/input/by-id/*event-kbd` on Linux works:
 - Preonic
 - Any USB keyboard
 
-Set `KEYBOARD_NAME` in `keyboard.conf` to match your keyboard.
+Set `KEYBOARD_NAME` in `scripts/keyboard.conf` to match your keyboard.
 
 ## SSH Setup
 
@@ -116,16 +116,24 @@ ssh-copy-id remarkable
 ssh remarkable
 ```
 
-## Files
+## Project Structure
 
-- `rmiject.c` - Kernel-level input injector (ARM64, runs on reMarkable)
-- `keyboard.conf` - Configuration
-- `remarkable.sh` - Linux script
-- `remarkable_mac.py` - macOS script  
-- `remarkable_windows.py` - Windows script
-- `toggle-remarkable.sh` - Quick toggle
-- `install.sh` - reMarkable installer
-- `setup.sh` - PC setup checker
+```
+├── src/
+│   └── rmiject.c              # Kernel injector (ARM64, runs on reMarkable)
+├── scripts/
+│   ├── keyboard.conf           # Configuration
+│   ├── remarkable.sh           # Linux script
+│   ├── remarkable_mac.py       # macOS script
+│   ├── remarkable_windows.py   # Windows script
+│   ├── toggle-remarkable.sh    # Quick toggle
+│   ├── install.sh              # reMarkable installer
+│   └── setup.sh                # PC setup checker
+├── .github/
+│   └── workflows/
+│       └── build.yml           # CI/CD pipeline
+└── README.md
+```
 
 ## Troubleshooting
 
@@ -136,7 +144,7 @@ Check available keyboards:
 ls /dev/input/by-id/ | grep -i kbd
 ```
 
-Update `KEYBOARD_NAME` in `keyboard.conf` to match.
+Update `KEYBOARD_NAME` in `scripts/keyboard.conf` to match.
 
 ### macOS: "Failed to create event tap"
 

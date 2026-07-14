@@ -8,7 +8,7 @@ source "${SCRIPT_DIR}/keyboard.conf"
 OS="$(uname -s)"
 
 case "$OS" in
-    Linux*)  SCRIPT="remarkable.sh" ;;
+    Linux*)  SCRIPT="${SCRIPT_DIR}/remarkable.sh" ;;
     Darwin*) SCRIPT="python3 ${SCRIPT_DIR}/remarkable_mac.py" ;;
     MINGW*|CYGWIN*|MSYS*) SCRIPT="python ${SCRIPT_DIR}/remarkable_windows.py" ;;
     *)       echo "❌ Unsupported OS: $OS"; exit 1 ;;

@@ -16,7 +16,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
 
       - name: Build for ARM64
-        run: aarch64-linux-gnu-gcc -o rmiject rmiject.c -static
+        run: aarch64-linux-gnu-gcc -o rmiject src/rmiject.c -static
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
